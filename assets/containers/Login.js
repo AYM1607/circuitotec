@@ -2,14 +2,14 @@ import Expo from 'expo';
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
 import { Container,
-         Text, 
-         Form, 
-         Item, 
-         Input, 
-         Label, 
+         Text,
+         Form,
+         Item,
+         Input,
+         Label,
          Button,
          Spinner,
-         Icon, 
+         Icon,
         } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
@@ -47,7 +47,7 @@ export default class App extends React.Component {
     this.setState({
       email: '',
       password: '',
-      error: 'Intentalo otra vez',
+      error: 'Inténtalo otra vez',
       loading: false,
     });
   }
@@ -56,7 +56,7 @@ export default class App extends React.Component {
     this.setState({
       email: '',
       password: '',
-      error: 'Ya tienes cuenta?',
+      error: '¿Ya tienes cuenta?',
       loading: false,
     });
   }
@@ -70,9 +70,9 @@ export default class App extends React.Component {
 
     return (
       <Button
-            bordered 
+            bordered
             block
-            light 
+            light
             style={styles.button}
             onPress={this.onButtonPress.bind(this)}
       >
@@ -91,12 +91,14 @@ export default class App extends React.Component {
 
         <Form style={{ marginTop: '40%', marginRight: '4%' }}>
           <Item floatingLabel>
-            <Label style={{ color: 'white' }}>Email</Label>
+            <Label style={{color: 'white'}}>Email</Label>
             <Input
               autoCorrect={false}
-              style={{ color: 'white' }} 
+              autoCapitalization={false}
+              style={{ color: 'white'}}
               value={this.state.email}
               onChangeText={text => this.setState({ email: text })}
+              autoCapitalize='none'
             />
           </Item>
           <Item floatingLabel>
@@ -104,7 +106,7 @@ export default class App extends React.Component {
             <Input
               secureTextEntry
               autoCorrect={false}
-              style={{ color: 'white' }} 
+              style={{ color: 'white' }}
               value={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
@@ -115,10 +117,10 @@ export default class App extends React.Component {
           {this.state.error}
         </Text>
         {this.loginButton()}
-        <Button 
-          iconLeft 
-          transparent 
-          light 
+        <Button
+          iconLeft
+          transparent
+          light
           style={styles.buttonBack}
           onPress={Actions.pop}
         >

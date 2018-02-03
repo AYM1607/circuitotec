@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar, Image } from 'react-native';
+import { StyleSheet, View, StatusBar, Image, Keyboard } from 'react-native';
 import Expo, { MapView } from 'expo';
 import { Container, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -17,6 +17,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    Keyboard.dismiss()
     const style = {
       width: 34,
       height: 14,
@@ -34,15 +35,15 @@ export default class App extends React.Component {
         rotateEnabled={false}
         style={{ flex: 1 }}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: 25.649173,
+          longitude: -100.289758,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         >
        <MapView.Marker
-        coordinate={{ latitude: 37.78825,
-          longitude: -122.4324, }}
+        coordinate={{ latitude: 25.649173,
+          longitude: -100.289758, }}
         rotation={120.0}
        >
        <Image ref='image' style={style} source={car} />
