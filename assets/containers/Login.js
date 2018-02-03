@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Keyboard} from 'react-native';
 import { Container,
          Text,
          Form,
@@ -40,6 +40,7 @@ export default class App extends React.Component {
       error: '',
       loading: false,
     });
+    Keyboard.dismiss()
     Actions.Mapa();
   }
 
