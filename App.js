@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Expo from 'expo';
-import { Container, Button, Text } from 'native-base';
+
 import { Router, Scene } from 'react-native-router-flux';
 import firebase from 'firebase';
 
@@ -13,22 +12,23 @@ export default class App extends React.Component {
 
   componentWillMount() {
     firebase.initializeApp({
-    apiKey: "AIzaSyC90PabaVp594fe2P_1c89lPCxHle18fJk",
-    authDomain: "mi-circuito-tec.firebaseapp.com",
-    databaseURL: "https://mi-circuito-tec.firebaseio.com",
-    projectId: "mi-circuito-tec",
-    storageBucket: "mi-circuito-tec.appspot.com",
-    messagingSenderId: "253965715675"
+    apiKey: 'AIzaSyC90PabaVp594fe2P_1c89lPCxHle18fJk',
+    authDomain: 'mi-circuito-tec.firebaseapp.com',
+    databaseURL: 'https://mi-circuito-tec.firebaseio.com',
+    projectId: 'mi-circuito-tec',
+    storageBucket: 'mi-circuito-tec.appspot.com',
+    messagingSenderId: '253965715675'
   });
   }
 
   render() {
     return (
         <Router>
-          <Scene key="root" hideNavBar>
+          <Scene key='root' hideNavBar>
             <Scene 
               key='Auth'
               component={Auth}
+              initial
             />
             <Scene 
               key='Login'
@@ -37,7 +37,6 @@ export default class App extends React.Component {
             <Scene 
               key='Mapa'
               component={Mapa}
-              initial
             />
           </Scene>
         </Router>
@@ -45,5 +44,3 @@ export default class App extends React.Component {
   }
 }
 
-
-//

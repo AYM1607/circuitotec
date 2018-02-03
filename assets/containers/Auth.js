@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar, Image } from 'react-native';
 import Expo from 'expo';
 import { Container, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+
+import busImage from '../bus.png';
 
 export default class App extends React.Component {
 
@@ -21,6 +23,10 @@ export default class App extends React.Component {
           backgroundColor="blue"
           barStyle="light-content"
         />
+        <Image
+          source={busImage}
+          style={styles.imageStyle}
+        />
         <Button 
           bordered 
           light 
@@ -38,7 +44,7 @@ export default class App extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     flex: 1,
     backgroundColor: '#0039A6',
@@ -50,5 +56,10 @@ const styles = StyleSheet.create({
     marginRight: '4%',
     marginTop: '2%',
   },
+  imageStyle: {
+    width: '60%',
+    resizeMode: 'contain',
+    marginBottom: 20,
+  },
 
-});
+};

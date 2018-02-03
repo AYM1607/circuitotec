@@ -14,8 +14,6 @@ import { Container,
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
-
-
 export default class App extends React.Component {
 
   async componentWillMount() {

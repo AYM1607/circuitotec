@@ -17,14 +17,13 @@ export default class App extends React.Component {
   }
 
   render() {
-
     const style = {
       width: 34,
       height: 14,
       transform: [
-        { rotate: '45deg' }
+        { rotate: '0deg' }
       ]
-    }
+    };
 
     return (
       <Container>
@@ -40,11 +39,11 @@ export default class App extends React.Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-       >
+        >
        <MapView.Marker
         coordinate={{ latitude: 37.78825,
           longitude: -122.4324, }}
-        rotation = {120.0}
+        rotation={120.0}
        >
        <Image ref='image' style={style} source={car} />
        </MapView.Marker>
