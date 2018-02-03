@@ -12,12 +12,12 @@ export default class App extends React.Component {
 
   componentWillMount() {
     firebase.initializeApp({
-    apiKey: 'AIzaSyC90PabaVp594fe2P_1c89lPCxHle18fJk',
-    authDomain: 'mi-circuito-tec.firebaseapp.com',
-    databaseURL: 'https://mi-circuito-tec.firebaseio.com',
-    projectId: 'mi-circuito-tec',
-    storageBucket: 'mi-circuito-tec.appspot.com',
-    messagingSenderId: '253965715675'
+      apiKey: "AIzaSyAVAPbwOH9MMV65z37xJMWt9PqzCO8KgIg",
+      authDomain: "tempusx-b8e56.firebaseapp.com",
+      databaseURL: "https://tempusx-b8e56.firebaseio.com",
+      projectId: "tempusx-b8e56",
+      storageBucket: "tempusx-b8e56.appspot.com",
+      messagingSenderId: "988327589724",  
   });
   }
 
@@ -28,7 +28,7 @@ export default class App extends React.Component {
             <Scene 
               key='Auth'
               component={Auth}
-              initial
+              //initial
             />
             <Scene 
               key='Login'
@@ -37,6 +37,7 @@ export default class App extends React.Component {
             <Scene 
               key='Mapa'
               component={Mapa}
+              initial
             />
           </Scene>
         </Router>
