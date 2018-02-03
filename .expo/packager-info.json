@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 15532,
-  "expoServerNgrokUrl": "https://qc-3ax.aym1607.circuitotec.exp.direct",
-  "packagerNgrokUrl": "https://packager.qc-3ax.aym1607.circuitotec.exp.direct",
-  "ngrokPid": 14188
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
