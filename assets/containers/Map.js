@@ -26,6 +26,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log('Hola');
     Keyboard.dismiss();
     const style = {
       width: 34,

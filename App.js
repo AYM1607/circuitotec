@@ -21,7 +21,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log('HOLAAAAA');
     return (
         <Router>
           <Scene key='root' hideNavBar>
