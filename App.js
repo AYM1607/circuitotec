@@ -28,7 +28,7 @@ export default class App extends React.Component {
             <Scene 
               key='Auth'
               component={Auth}
-              //initial
+              initial
             />
             <Scene 
               key='Login'
@@ -37,7 +37,7 @@ export default class App extends React.Component {
             <Scene 
               key='Mapa'
               component={Mapa}
-              initial
+              //initial
             />
           </Scene>
         </Router>

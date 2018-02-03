@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar, Image, Keyboard } from 'react-native';
+import { StyleSheet, View, StatusBar, Image, Keyboard, __spread } from 'react-native';
 import Expo, { MapView } from 'expo';
 import { Container, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import fb from 'firebase';
+import firebase from 'firebase';
+import 'firebase/firestore';
 
 import car from '../Imagen2.png';
 import AnimatedDrawer from './AnimatedDrawer';
@@ -12,8 +13,10 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(fb.firestore);
-    this.state = { fontLoaded: false };
+    this.ref = firebase.firestore().collection('cam');
+    this.unsubscribe = null;
+
+    this.state = { fontLoaded: false, cam: {} };
   }
 
   async componentWillMount() {
@@ -25,8 +28,33 @@ export default class App extends React.Component {
       this.setState({ fontLoaded: true });
   }
 
+  componentDidMount() {
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate); 
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onCollectionUpdate = (query) => {
+    query.forEach((doc) => {
+      console.log(doc.pos);
+      /*const id = doc.id;
+      this.setState({ cam: { ...this.state.cam, 
+        [id]: { 
+          id: doc.id,
+          lat: [doc.pos.getLatitude()],
+          long: [doc.pos.getLongitude()],
+      } }
+    });*/
+    });
+
+    console.log(this.state.cam);
+  }
+
   render() {
     Keyboard.dismiss();
+    console.log("Hola");
     const style = {
       width: 34,
       height: 14,
