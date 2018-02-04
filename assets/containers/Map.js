@@ -53,6 +53,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log('Hola');
     Keyboard.dismiss();
     console.log("Hola");
     const style = {
