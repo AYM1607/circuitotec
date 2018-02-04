@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { StyleSheet, View, StatusBar, Image } from 'react-native';
-=======
 import { StyleSheet, View, StatusBar, Image, Keyboard, __spread } from 'react-native';
->>>>>>> 4ad361075c847328b07d993e40424a9e65e65e5c
 import Expo, { MapView } from 'expo';
 import { Container, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -33,7 +29,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate); 
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
   componentWillUnmount() {
@@ -43,8 +39,8 @@ export default class App extends React.Component {
   onCollectionUpdate = (query) => {
     query.forEach((doc) => {
       //console.log(doc.data().pos['_lat']);
-      this.setState({ cam: { ...this.state.cam, 
-        [doc.data().id]: { 
+      this.setState({ cam: { ...this.state.cam,
+        [doc.data().id]: {
           id: doc.data().id,
           lat: doc.data().pos['_lat'],
           long: doc.data().pos['_long'],
@@ -74,10 +70,9 @@ export default class App extends React.Component {
     }
     return null;
   }
-    
+
 
   render() {
-<<<<<<< HEAD
     const style = {
       width: 34,
       height: 14,
@@ -86,9 +81,6 @@ export default class App extends React.Component {
       ]
     };
 
-=======
-    Keyboard.dismiss();
->>>>>>> 4ad361075c847328b07d993e40424a9e65e65e5c
     return (
           this.state.carsLoaded ? (
             <Container>

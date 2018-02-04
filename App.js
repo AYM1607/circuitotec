@@ -42,10 +42,6 @@ export default class App extends React.Component {
             <Scene
               key='Mapa'
               component={Mapa}
-<<<<<<< HEAD
-=======
-              //initial
->>>>>>> 4ad361075c847328b07d993e40424a9e65e65e5c
             />
           </Scene>
         </Router>

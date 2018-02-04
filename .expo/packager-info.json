@@ -1,16 +1,8 @@
 {
   "packagerPort": 19002,
-<<<<<<< HEAD
   "packagerPid": 28596,
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://3m-yth.netocervantes98.circuitotec.exp.direct",
   "packagerNgrokUrl": "https://packager.3m-yth.netocervantes98.circuitotec.exp.direct",
   "ngrokPid": 28264
-=======
-  "packagerPid": 1832,
-  "expoServerPort": 19001,
-  "expoServerNgrokUrl": "https://qc-3ax.aym1607.circuitotec.exp.direct",
-  "packagerNgrokUrl": "https://packager.qc-3ax.aym1607.circuitotec.exp.direct",
-  "ngrokPid": 14656
->>>>>>> 4ad361075c847328b07d993e40424a9e65e65e5c
 }

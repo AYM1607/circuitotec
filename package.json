@@ -8,13 +8,8 @@
     "native-base": "^2.3.7",
     "react": "16.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz",
-<<<<<<< HEAD
-    "react-native-router-flux": "^4.0.0-beta.28",
-    "react-toolbox": "^2.0.0-beta.12"
-=======
     "react-native-firebase": "^3.2.4",
     "react-native-router-flux": "^4.0.0-beta.28"
->>>>>>> 4ad361075c847328b07d993e40424a9e65e65e5c
   },
   "devDependencies": {
     "eslint-config-rallycoding": "^3.2.0"
