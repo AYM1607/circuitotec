@@ -5,6 +5,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import firebase from 'firebase';
 
 import Auth from './assets/containers/Auth';
+import Register from './assets/containers/Register';
 import Login from './assets/containers/Login';
 import Mapa from './assets/containers/Map';
 
@@ -17,7 +18,7 @@ export default class App extends React.Component {
       databaseURL: "https://tempusx-b8e56.firebaseio.com",
       projectId: "tempusx-b8e56",
       storageBucket: "tempusx-b8e56.appspot.com",
-      messagingSenderId: "988327589724",  
+      messagingSenderId: "988327589724",
   });
   }
 
@@ -25,23 +26,25 @@ export default class App extends React.Component {
     return (
         <Router>
           <Scene key='root' hideNavBar>
-            <Scene 
+            <Scene
               key='Auth'
               component={Auth}
-              //initial
+              initial
             />
-            <Scene 
+            <Scene
               key='Login'
               component={Login}
             />
-            <Scene 
+            <Scene
+              key='Register'
+              component={Register}
+            />
+            <Scene
               key='Mapa'
               component={Mapa}
-              initial
             />
           </Scene>
         </Router>
     );
   }
 }
-

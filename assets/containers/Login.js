@@ -94,7 +94,6 @@ export default class App extends React.Component {
           <Item floatingLabel>
             <Label style={{color: 'white'}}>Email</Label>
             <Input
-              autoCorrect={false}
               autoCapitalization={false}
               style={{ color: 'white'}}
               value={this.state.email}
@@ -106,7 +105,6 @@ export default class App extends React.Component {
             <Label style={{ color: 'white' }}>Password</Label>
             <Input
               secureTextEntry
-              autoCorrect={false}
               style={{ color: 'white' }}
               value={this.state.password}
               onChangeText={text => this.setState({ password: text })}

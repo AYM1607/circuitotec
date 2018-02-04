@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { 
-    Animated, 
-    View, 
+import {
+    Animated,
+    View,
     PanResponder,
     Dimensions,
+    Platform,
 } from 'react-native';
 import { Text, Icon } from 'native-base';
 
 //constant that indicates the height of the screen
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-//constant that indicates the threshold fro moving the drawer 
+//constant that indicates the threshold fro moving the drawer
 const SWIPE_THRESHOLD = 0.20 * SCREEN_HEIGHT;
 
 export default class AnimatedDrawer extends Component {
@@ -70,24 +71,47 @@ export default class AnimatedDrawer extends Component {
 const styles = {
     icon: {
         alignSelf: 'center',
-        color: '#ddd'
+        color: '#456',
+        ...Platform.select({
+        android: {
+          elevation:12,
+        },
+      })
     },
     drawer: {
         borderRadius: 7,
         position: 'absolute',
-        backgroundColor: '#fff',
-        marginRight: '4%',
-        marginLeft: '4%',
-        width: '92%',
         height: '80%',
         marginTop: '160%',
-    }, 
+        width: '92%',
+        marginRight: '4%',
+        marginLeft: '4%',
+
+        ...Platform.select({
+        ios: {
+          backgroundColor: '#fff',
+        },
+        android: {
+          elevation:8,
+        },
+      })
+    },
     shadow: {
-        shadowColor: '#222',
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        borderRadius: 7,
-        height: '100%',
-    }
+        ...Platform.select({
+          ios: {
+            shadowColor: '#222',
+            shadowOffset: { width: 5, height: 5 },
+            shadowOpacity: 0.5,
+            shadowRadius: 2,
+            borderRadius: 7,
+            height: '100%',
+          },
+          android: {
+             backgroundColor: '#fff',
+             borderRadius: 7,
+             height: '100%',
+             width: '100%',
+          },
+        })
+    },
 };

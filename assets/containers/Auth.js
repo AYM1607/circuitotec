@@ -43,7 +43,13 @@ export default class App extends React.Component {
           >
             <Text> Iniciar sesión </Text>
           </Button>
-          <Button bordered light block style={styles.button}>
+          <Button
+            bordered
+            light
+            block
+            style={styles.button}
+            onPress={Actions.Register}
+          >
             <Text> Registrarse </Text>
           </Button>
         </View>
