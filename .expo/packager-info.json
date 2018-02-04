@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://qc-3ax.osvaldoav.circuitotec.exp.direct",
-  "packagerNgrokUrl": "https://packager.qc-3ax.osvaldoav.circuitotec.exp.direct",
-  "ngrokPid": 71622,
-  "packagerPort": 19003,
-  "packagerPid": 71609
+  "expoServerNgrokUrl": "https://y2-v8v.osvaldoav.circuitotec.exp.direct",
+  "packagerNgrokUrl": "https://packager.y2-v8v.osvaldoav.circuitotec.exp.direct",
+  "ngrokPid": 75996,
+  "packagerPort": 19004,
+  "packagerPid": 75981
 }
