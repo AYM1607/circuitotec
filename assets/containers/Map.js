@@ -133,7 +133,6 @@ export default class App extends React.Component {
     if (arr.length > 0) {
       return arr.map((item) => {
         return (
-
           <MapView.Marker
             coordinate={{ latitude: item.lat,
             longitude: item.long, }}
@@ -147,6 +146,7 @@ export default class App extends React.Component {
   }
     
 
+  
   render() {
     this.getTotalTime();
     Keyboard.dismiss();
