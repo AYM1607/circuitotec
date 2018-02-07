@@ -39,8 +39,8 @@ export default class App extends React.Component {
   onCollectionUpdate = (query) => {
     query.forEach((doc) => {
       //console.log(doc.data().pos['_lat']);
-      this.setState({ cam: { ...this.state.cam, 
-        [doc.data().id]: { 
+      this.setState({ cam: { ...this.state.cam,
+        [doc.data().id]: {
           id: doc.data().id,
           lat: doc.data().pos['_lat'],
           long: doc.data().pos['_long'],
@@ -144,9 +144,7 @@ export default class App extends React.Component {
     }
     return null;
   }
-    
 
-  
   render() {
     this.getTotalTime();
     Keyboard.dismiss();
