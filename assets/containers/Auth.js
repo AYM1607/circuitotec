@@ -9,7 +9,7 @@ import busImage from '../bus.png';
 
 export default class App extends React.Component {
 
-  state = { fontLoaded: false};
+  state = { fontLoaded: false };
 
   async componentWillMount() {
         await Expo.Font.loadAsync({
@@ -58,8 +58,6 @@ export default class App extends React.Component {
     );
   }
 }
-
-
 
 const styles = {
   container: {

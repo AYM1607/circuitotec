@@ -8,6 +8,8 @@ import 'firebase/firestore';
 
 import car from '../Imagen2.png';
 import AnimatedDrawer from './AnimatedDrawer';
+import BarraInfo from './BarraInfo';
+
 
 export default class App extends React.Component {
 
@@ -16,7 +18,7 @@ export default class App extends React.Component {
     this.ref = firebase.firestore().collection('cam');
     this.unsubscribe = null;
 
-    this.state = { fontLoaded: false, cam: {} };
+    this.state = { fontLoaded: false, isInitial: true, camPast: {}, cam: {} };
   }
 
   async componentWillMount() {
@@ -25,7 +27,7 @@ export default class App extends React.Component {
         'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
         'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
       });
-      this.setState({ fontLoaded: true });
+      this.setState({ fontLoaded: true }); 
   }
 
   componentDidMount() {
@@ -37,19 +39,76 @@ export default class App extends React.Component {
   }
 
   onCollectionUpdate = (query) => {
-    query.forEach((doc) => {
-      //console.log(doc.data().pos['_lat']);
-      this.setState({ cam: { ...this.state.cam, 
-        [doc.data().id]: { 
-          id: doc.data().id,
-          lat: doc.data().pos['_lat'],
-          long: doc.data().pos['_long'],
-      } }
-    });
-    });
+    if (this.state.isInitial) {
+      query.forEach((doc) => {
+        //console.log(doc.data().pos['_lat']);
+        this.setState({ camPast: { ...this.state.camPast, 
+          [doc.data().id]: { 
+            id: doc.data().id,
+            lat: doc.data().pos['_lat'],
+            long: doc.data().pos['_long'],
+            angle: '0deg',
+        } }
+      });
+      });
+      this.setState({ cam: this.state.camPast });
+    } else {
+      query.forEach((doc) => {
+        //console.log(doc.data().pos['_lat']);
 
-    this.setState({ carsLoaded: true });
+        const str = this.getAngle(
+          this.state.camPast[doc.data().id].long,
+          this.state.camPast[doc.data().id].lat, 
+          doc.data().pos['_long'], 
+          doc.data().pos['_lat'], 
+          this.state.camPast[doc.data().id].angle
+        );
+
+        this.setState({ cam: { ...this.state.cam, 
+          [doc.data().id]: { 
+            id: doc.data().id,
+            lat: doc.data().pos['_lat'],
+            long: doc.data().pos['_long'],
+            angle: str,
+        } }
+      });
+      });
+      this.setState({ camPast: this.state.cam });
+    }
+
+    this.setState({ carsLoaded: true, isInitial: false });
     //console.log(this.state.cam);
+  }
+
+  getAngle(xi, yi, xf, yf, angle) {
+    const angleRad = Math.atan((yf - yi) / (xf - xi));
+    const dx = xf - xi;
+    const dy = yf - yi;
+    const angleDeg = ((angleRad * 180) / Math.PI);
+
+    let str = '';
+
+    if (dx === 0 && dy === 0) {
+      str = angle;
+    } else if (dx === 0 && dy > 0) {
+      str = '-90deg';
+    } else if (dx > 0 && dy > 0) {
+      str = (0 - angleDeg) + 'deg';
+    } else if (dx > 0 && dy === 0) {
+      str = '0deg';
+    } else if (dx > 0 && dy < 0) {
+      str = (0 - angleDeg) + 'deg';
+    } else if (dx === 0 && dy < 0) {
+      str = '90deg';
+    } else if (dx < 0 && dy < 0) {
+      str = (90 + angleDeg) + 'deg';
+    } else if (dx < 0 && dy === 0) {
+      str = '180deg';
+    } else if (dx < 0 && dy > 0) {
+      str = (angleDeg - 90) + 'deg';
+    }
+
+    return str;
   }
 
   // Returns url ready to send a get request with cors
@@ -179,10 +238,21 @@ export default class App extends React.Component {
       return arr.map((item) => {
         return (
           <MapView.Marker
+            key={item.id}
             coordinate={{ latitude: item.lat,
             longitude: item.long, }}
           >
-            <Image ref='image' style={styles.markerStyle} source={car} />
+              <Image 
+              ref='image'
+              style={{
+                width: 34,
+                height: 14,
+                transform: [
+                  { rotate: item.angle }
+                ]
+              }} 
+              source={car} 
+            />
           </MapView.Marker>
         );
       });
@@ -218,6 +288,7 @@ export default class App extends React.Component {
                 {this.renderCars()}
               </MapView>
                 {this.state.fontLoaded ? <AnimatedDrawer /> : null}
+                {this.state.fontLoaded ? <BarraInfo /> : null}
              </Container>
           ) : null
     );
@@ -239,7 +310,7 @@ const styles = StyleSheet.create({
     width: 34,
     height: 14,
     transform: [
-      { rotate: '0deg' }
+      { rotate: '-21.5175deg' }
     ]
   }
 
