@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import { Text, Icon } from 'native-base';
 
+import ContenidoGesture from './ContenidoGesture';
+
 //constant that indicates the height of the screen
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 //constant that indicates the threshold fro moving the drawer 
@@ -61,6 +63,7 @@ export default class AnimatedDrawer extends Component {
             >
                 <View style={styles.shadow}>
                     <Icon style={styles.icon} name={this.state.iconName} />
+                    <ContenidoGesture />
                 </View>
             </Animated.View>
         );
