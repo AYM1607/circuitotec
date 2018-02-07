@@ -127,6 +127,51 @@ export default class App extends React.Component {
     });
   }
 
+  nearestPoint(lat, lng) {
+    const db = firebase.firestore();
+    return db.doc('Ruta Revolucion/Polyline').get()
+    .then((doc) => {
+      const polyline = doc.data().polyline;
+      let minimum = 1; 
+      let index = 0;
+      let substract;
+      for (let i = 0; i < polyline.length; i++) {
+        substract = Math.abs((polyline[i].lat - lat)) + Math.abs((polyline[i].lng - lng));
+        if (substract < minimum) {
+          minimum = substract;
+          index = i;
+        } 
+      }
+      return index;
+    })
+    .catch(() => {
+      console.log('Hubo un error');
+    });
+  }
+
+  getRealTime(bus, location){
+    const db = firebase.firestore();
+    return db.doc('Ruta Revolucion/Time').get()
+    .then((doc) => {
+      const times = doc.data().array;
+      let totalTime = 0;
+      if (bus < location) {
+        for (let i = bus; i < location; i++) {
+          totalTime += times[i];
+        }
+      } else {
+        for (let i = 0; i < location; i++) {
+          totalTime += times[i];
+        }
+        for (let i = bus; i < times.length; i++) {
+          totalTime += times[i];
+        }
+      }
+      return totalTime;
+    })
+    .catch();
+  }
+
   renderCars() {
    // if (Object.keys(this.state.cam).length > 0) {
     const arr = Object.keys(this.state.cam).map((key) => { return this.state.cam[key]; });
@@ -144,11 +189,14 @@ export default class App extends React.Component {
     }
     return null;
   }
-    
 
-  
+
   render() {
-    this.getTotalTime();
+    const time = this.getRealTime(64, 13);
+    time.then(() => {
+      console.log(time._55);
+    });
+
     Keyboard.dismiss();
     return (
           this.state.carsLoaded ? (
