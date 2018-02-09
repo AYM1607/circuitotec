@@ -23,7 +23,7 @@ export default class Barra extends React.Component {
                     <Icon name='md-time' style={styles.icono} />
                 </Col>
                 <Col style={{ backgroundColor: 'rgba(0,0,0,0)'}}>
-                <Text style={styles.texto}> 6 min </Text>
+                <Text style={styles.texto}> { this.props.tiempo } </Text>
                 </Col>
             </Grid>
             </View>
