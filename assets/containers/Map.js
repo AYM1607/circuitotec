@@ -92,8 +92,8 @@ export default class App extends React.Component {
 
   getAngle(xi, yi, xf, yf, angle) {
     const angleRad = Math.atan((yf - yi) / (xf - xi)).toFixed(10);
-    const dx = (xf - xi).toFixed(10);
-    const dy = (yf - yi).toFixed(10);
+    const dx = (xf - xi);
+    const dy = (yf - yi);
     const angleDeg = ((angleRad * 180) / Math.PI).toFixed(10);
 
     let str = '';
@@ -111,7 +111,7 @@ export default class App extends React.Component {
     } else if (dx === 0 && dy < 0) {
       str = '90deg';
     } else if (dx < 0 && dy < 0) {
-      str = (90 + angleDeg) + 'deg';
+      str = (180 - angleDeg) + 'deg';
     } else if (dx < 0 && dy === 0) {
       str = '180deg';
     } else if (dx < 0 && dy > 0) {
