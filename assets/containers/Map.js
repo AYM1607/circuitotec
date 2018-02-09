@@ -18,7 +18,7 @@ export default class App extends React.Component {
     this.ref = firebase.firestore().collection('cam');
     this.unsubscribe = null;
 
-    this.state = { fontLoaded: false, isInitial: true, camPast: {}, cam: {} };
+    this.state = { fontLoaded: false, isInitial: true, camPast: {}, cam: {}, time: 0, oldTime : -1};
   }
 
   async componentWillMount() {
@@ -27,7 +27,7 @@ export default class App extends React.Component {
         'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
         'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
       });
-      this.setState({ fontLoaded: true }); 
+      this.setState({ fontLoaded: true });
   }
 
   componentDidMount() {
@@ -39,11 +39,24 @@ export default class App extends React.Component {
   }
 
   onCollectionUpdate = (query) => {
+
+    const busPos = this.getBusPosition();
+      busPos.then((data) => {
+        const pos = this.nearestPoint(data._lat, data._long);
+        pos.then((mipos) => {
+          const time = this.getRealTime(mipos, 0);
+          time.then((mari) => {
+            console.log(mari);
+              this.setState({ time: Math.round(mari / 60) + '\ mins' });
+          });
+        });
+      });
+
     if (this.state.isInitial) {
       query.forEach((doc) => {
         //console.log(doc.data().pos['_lat']);
-        this.setState({ camPast: { ...this.state.camPast, 
-          [doc.data().id]: { 
+        this.setState({ camPast: { ...this.state.camPast,
+          [doc.data().id]: {
             id: doc.data().id,
             lat: doc.data().pos['_lat'],
             long: doc.data().pos['_long'],
@@ -58,14 +71,14 @@ export default class App extends React.Component {
 
         const str = this.getAngle(
           this.state.camPast[doc.data().id].long,
-          this.state.camPast[doc.data().id].lat, 
-          doc.data().pos['_long'], 
-          doc.data().pos['_lat'], 
+          this.state.camPast[doc.data().id].lat,
+          doc.data().pos['_long'],
+          doc.data().pos['_lat'],
           this.state.camPast[doc.data().id].angle
         );
 
-        this.setState({ cam: { ...this.state.cam, 
-          [doc.data().id]: { 
+        this.setState({ cam: { ...this.state.cam,
+          [doc.data().id]: {
             id: doc.data().id,
             lat: doc.data().pos['_lat'],
             long: doc.data().pos['_long'],
@@ -191,7 +204,7 @@ export default class App extends React.Component {
     return db.doc('Ruta Revolucion/Polyline').get()
     .then((doc) => {
       const polyline = doc.data().polyline;
-      let minimum = 1; 
+      let minimum = 1;
       let index = 0;
       let substract;
       for (let i = 0; i < polyline.length; i++) {
@@ -199,7 +212,7 @@ export default class App extends React.Component {
         if (substract < minimum) {
           minimum = substract;
           index = i;
-        } 
+        }
       }
       return index;
     })
@@ -231,6 +244,14 @@ export default class App extends React.Component {
     .catch();
   }
 
+  getBusPosition() {
+    const db = firebase.firestore();
+    return db.doc('cam/1').get()
+    .then((doc) => {
+      return doc.data().pos;
+    });
+  }
+
   renderCars() {
    // if (Object.keys(this.state.cam).length > 0) {
     const arr = Object.keys(this.state.cam).map((key) => { return this.state.cam[key]; });
@@ -242,7 +263,7 @@ export default class App extends React.Component {
             coordinate={{ latitude: item.lat,
             longitude: item.long, }}
           >
-              <Image 
+              <Image
               ref='image'
               style={{
                 width: 34,
@@ -250,8 +271,8 @@ export default class App extends React.Component {
                 transform: [
                   { rotate: item.angle }
                 ]
-              }} 
-              source={car} 
+              }}
+              source={car}
             />
           </MapView.Marker>
         );
@@ -262,11 +283,7 @@ export default class App extends React.Component {
 
 
   render() {
-    const time = this.getRealTime(64, 13);
-    time.then(() => {
-      console.log(time._55);
-    });
-
+    this.getTotalTime();
     Keyboard.dismiss();
     return (
           this.state.carsLoaded ? (
@@ -288,7 +305,7 @@ export default class App extends React.Component {
                 {this.renderCars()}
               </MapView>
                 {this.state.fontLoaded ? <AnimatedDrawer /> : null}
-                {this.state.fontLoaded ? <BarraInfo /> : null}
+                {this.state.fontLoaded ? <BarraInfo tiempo={this.state.time} /> : null}
              </Container>
           ) : null
     );

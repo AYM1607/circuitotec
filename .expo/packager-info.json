@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 2391,
-  "expoServerNgrokUrl": "https://fm-h9y.osvaldoav.circuitotec.exp.direct",
-  "packagerNgrokUrl": "https://packager.fm-h9y.osvaldoav.circuitotec.exp.direct",
-  "ngrokPid": 2407
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
