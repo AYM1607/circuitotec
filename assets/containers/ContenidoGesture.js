@@ -1,11 +1,71 @@
 import React, { Component } from 'react';
 import { Dimensions, View, Image } from 'react-native';
 import { Container, Header, Left, Right, Button, Icon, Text, Body, Grid, Col } from 'native-base';
-import RutaHospitales from '../RutaHospitales.png';
+import RutaHospitales from '../RutaHospitales.jpg';
+import RutaRevolucion from '../RutaRevolucion.jpg';
+import RutaGarzaSada from '../RutaGarzaSada.jpg';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class ContenidoGesture extends React.Component {
+
+    state = {count: 1, imagen: RutaHospitales, texto: 'Ruta Hospitales'};
+
+    lista () {
+        let i = this.state.count + 1;
+        let image;
+        let ruta;
+
+        if (i > 3){
+            i = 1; 
+        }
+        else if (i < 1){
+            i = 3;
+        }
+        switch (i) {
+            case 1:
+                image = RutaHospitales;
+                ruta = 'Ruta Hospitales';
+                break;
+            case 2:
+                image = RutaRevolucion;
+                ruta = 'Ruta Revolucion';
+                break;
+            case 3:
+                image = RutaGarzaSada;
+                ruta = 'Ruta Garza Sada';
+                break;
+        }
+        this.setState({count: i, imagen: image, texto: ruta});
+    }
+
+    lista2 () {
+        let i = this.state.count - 1;
+        let image;
+        let ruta;
+
+        if (i > 3){
+            i = 1; 
+        }
+        else if (i < 1){
+            i = 3;
+        }
+        switch (i) {
+            case 1:
+                image = RutaHospitales;
+                ruta = 'Ruta Hospitales';
+                break;
+            case 2:
+                image = RutaRevolucion;
+                ruta = 'Ruta Revolucion';
+                break;
+            case 3:
+                image = RutaGarzaSada;
+                ruta = 'Ruta Garza Sada';
+                break;
+        }
+        this.setState({count: i, imagen: image, texto: ruta});
+    }
 
     render() {
 
@@ -15,18 +75,18 @@ export default class ContenidoGesture extends React.Component {
             <View style={Posicion}>
                 <Grid>
                     <Col size={1} style={Colo}>
-                        <Button transparent style={bLeft} >
+                        <Button transparent onPress={this.lista.bind(this)} style={bLeft} >
                             <Icon name='ios-arrow-back-outline' style={Icono} />
                         </Button>
                     </Col>
                     <Col size={5} style={Colo1} >
-                        <Text style={Texto}> Ruta Hospitales </Text>
+                        <Text style={Texto}> {this.state.texto} </Text>
                         <Image 
                             style={styles.imageStyle}
-                            source={RutaHospitales} />
+                            source={this.state.imagen} />
                     </Col>
                     <Col size={1} style={Colo}>
-                        <Button transparent style={bRight} >
+                        <Button transparent onPress={this.lista2.bind(this)} style={bRight} >
                             <Icon name='ios-arrow-forward-outline' style={Icono} />
                         </Button>
                     </Col>

@@ -17,7 +17,7 @@ export default class App extends React.Component {
     this.ref = firebase.firestore().collection('cam');
     this.unsubscribe = null;
 
-    this.state = { fontLoaded: false, isInitial: true, camPast: {}, cam: {} };
+    this.state = { fontLoaded: false, isInitial: true, camPast: {}, cam: {}, polyline: [] };
   }
 
   async componentWillMount() {
@@ -27,6 +27,17 @@ export default class App extends React.Component {
         'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
       });
       this.setState({ fontLoaded: true });
+      firebase.firestore().doc('Ruta Revolucion/Polyline').get().then((doc) => {
+        if (doc.exists) {
+          const polyline = doc.data().polyline.map((item) => {
+            return ({    
+                latitude: item.lat,
+                longitude: item.lng,
+            });
+          });
+          this.setState({ polyline });
+        }
+      });
   }
 
   componentDidMount() {
@@ -80,10 +91,10 @@ export default class App extends React.Component {
   }
 
   getAngle(xi, yi, xf, yf, angle) {
-    const angleRad = Math.atan((yf - yi) / (xf - xi));
-    const dx = xf - xi;
-    const dy = yf - yi;
-    const angleDeg = ((angleRad * 180) / Math.PI);
+    const angleRad = Math.atan((yf - yi) / (xf - xi)).toFixed(10);
+    const dx = (xf - xi).toFixed(10);
+    const dy = (yf - yi).toFixed(10);
+    const angleDeg = ((angleRad * 180) / Math.PI).toFixed(10);
 
     let str = '';
 
@@ -122,6 +133,7 @@ export default class App extends React.Component {
             coordinate={{ latitude: item.lat,
             longitude: item.long, }}
           >
+          { item.id === 'persona' ? null : (
             <Image 
               ref='image'
               style={{
@@ -133,6 +145,7 @@ export default class App extends React.Component {
               }} 
               source={car} 
             />
+          )}
           </MapView.Marker>
         );
       });
@@ -162,6 +175,11 @@ export default class App extends React.Component {
               }}
               >
                 {this.renderCars()}
+                <MapView.Polyline
+                  coordinates={this.state.polyline}
+                  strokeColor="#85c1e9" // fallback for when `strokeColors` is not supported by the map-provider
+                  strokeWidth={3}
+                />
               </MapView>
                 {this.state.fontLoaded ? <AnimatedDrawer /> : null}
                 {this.state.fontLoaded ? <BarraInfo /> : null}
